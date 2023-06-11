@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorScheme: darkColorScheme
+        colorScheme: darkColorScheme,
+        fontFamily: GoogleFonts.lato().fontFamily,
       ),
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,

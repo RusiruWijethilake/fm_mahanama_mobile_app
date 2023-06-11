@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:fm_mahanama_mobile_app/pages/tabs/tab_radio.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
@@ -16,6 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>{
 
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

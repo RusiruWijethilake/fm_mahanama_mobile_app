@@ -13,6 +13,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
   late AnimationController controller;
   late Animation<double> animation;
 
+  double _volumeSliderValue = 1;
 
   @override
   void initState() {
@@ -117,9 +118,53 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                 size: 52.0,
               ),
               style: IconButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
                 foregroundColor: Colors.black87,
                 padding: const EdgeInsets.all(18.0),
+              ),
+            ),
+            const SizedBox(height: 32.0),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 70,
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(16.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 16.0,
+                    offset: const Offset(0.0, 4.0),
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Slider(
+                    value: _volumeSliderValue,
+                    onChanged: (value) {
+                      setState(() {
+                        _volumeSliderValue = value;
+                      });
+                    },
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.chat_rounded),
+                    iconSize: 24.0,
+                    color: Colors.black54,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.share_rounded),
+                    iconSize: 24.0,
+                    color: Colors.black54,
+                  ),
+                ],
               ),
             ),
           ],
