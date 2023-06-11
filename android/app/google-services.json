@@ -1,0 +1,407 @@
+{
+  "project_info": {
+    "project_number": "1023337101903",
+    "firebase_url": "https://fm-mahanama-2017-live-stream.firebaseio.com",
+    "project_id": "fm-mahanama-2017-live-stream",
+    "storage_bucket": "fm-mahanama-2017-live-stream.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:f90c0af3cb34bf2537483a",
+        "android_client_info": {
+          "package_name": "com.lk.rusiruwijethilake.fm_mahanama_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:88507827e614139a37483a",
+        "android_client_info": {
+          "package_name": "lk.com.mcrc.fm_mahanama_client_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:81a9eff4d325802937483a",
+        "android_client_info": {
+          "package_name": "lk.com.rusiruwijethilake.fm_mahanama_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:1af69c95bdf7a669",
+        "android_client_info": {
+          "package_name": "lk.developments.microlion.fmmahanamaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-3teg97d1jpcrt4b7dah9h7ggp9t8ik7d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamaadmin",
+            "certificate_hash": "5b13e2ea6d3cd49e06222d8c59fab207f1c5fa57"
+          }
+        },
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:2414f35f14882b90",
+        "android_client_info": {
+          "package_name": "lk.developments.microlion.fmmahanamalive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-3jmmbs1e2j8f2etr5v6petfpiv8vu3p6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamalive",
+            "certificate_hash": "03279ed2b14a0e3fc9b0037d03462c1fa95f37d1"
+          }
+        },
+        {
+          "client_id": "1023337101903-4jrq5s2abd9ao43fr05cd6pkjg5m811g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamalive",
+            "certificate_hash": "f53a47806461cd7634545680556866b617f4dacf"
+          }
+        },
+        {
+          "client_id": "1023337101903-86fcov1g9p314u3qdkv32lktb0q2j0es.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamalive",
+            "certificate_hash": "441d2a82bc0f117081377ea856aa492bd37047cb"
+          }
+        },
+        {
+          "client_id": "1023337101903-gn93usrsrulgccfgrhua269abh9h75e2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamalive",
+            "certificate_hash": "e73349323fbea85ab96b1a4380717d823d77e803"
+          }
+        },
+        {
+          "client_id": "1023337101903-hfmlfilgmoe3oc4p7ni3u3i2th1vqsi5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.developments.microlion.fmmahanamalive",
+            "certificate_hash": "5b13e2ea6d3cd49e06222d8c59fab207f1c5fa57"
+          }
+        },
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:aab900b8b61ade9437483a",
+        "android_client_info": {
+          "package_name": "lk.microlion.dev.fmmahanama.fm_mahanama_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:3abb5240fe0468d037483a",
+        "android_client_info": {
+          "package_name": "lk.microlion.devfam.fmmahanamaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:a984be99a590949537483a",
+        "android_client_info": {
+          "package_name": "lk.microlion.fmmahanamaadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-01dngqutq50pqvfs1h87903grur5kd1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.microlion.fmmahanamaadmin",
+            "certificate_hash": "e73349323fbea85ab96b1a4380717d823d77e803"
+          }
+        },
+        {
+          "client_id": "1023337101903-t849efduj6hp5ci71c46vb8ar94djb3o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lk.microlion.fmmahanamaadmin",
+            "certificate_hash": "62511b2051100c557ef7be362a70de869776b109"
+          }
+        },
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023337101903:android:0277d2b2d9b8fa21",
+        "android_client_info": {
+          "package_name": "technologies.microlion.lk.fmmliveadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023337101903-to8if2ri1fak8tro5g83sk0rl31imkb5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "technologies.microlion.lk.fmmliveadmin",
+            "certificate_hash": "441d2a82bc0f117081377ea856aa492bd37047cb"
+          }
+        },
+        {
+          "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEK7diFKSH5-q2yVlqLhfBgFNRRzPPztU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023337101903-f6pjc9o7l3q3ddga4fgvmcjd8osoqo3o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1023337101903-1tp9scuk2js06rb811opt7b78du8pv9j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "lk.microlion.dev.fmmahanama.fmMahanamaMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
