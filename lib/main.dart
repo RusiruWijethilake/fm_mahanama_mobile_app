@@ -1,10 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:fm_mahanama_mobile_app/firebase_options.dart';
 import 'package:fm_mahanama_mobile_app/pages/home_page.dart';
 import 'package:fm_mahanama_mobile_app/theme/color_schemes.g.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -18,14 +22,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: lightColorScheme,
-        fontFamily: GoogleFonts.lato().fontFamily,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: darkColorScheme,
-        fontFamily: GoogleFonts.lato().fontFamily,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
       routes: {
         HomePage.routeName: (context) => const HomePage(),
