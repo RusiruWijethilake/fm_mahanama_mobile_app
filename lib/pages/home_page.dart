@@ -1,3 +1,5 @@
+import 'package:assets_audio_player/src/assets_audio_player.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
@@ -6,7 +8,10 @@ import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  FirebaseAnalytics analytics;
+  AssetsAudioPlayer radioPlayer;
+
+  HomePage({Key? key, required this.analytics, required this.radioPlayer}) : super(key: key);
 
   static const String routeName = '/home_page';
 
@@ -117,7 +122,7 @@ class _HomePageState extends State<HomePage>{
             child: IndexedStack(
             index: _selectedIndex,
             children: [
-              const RadioTab(),
+              RadioTab(analytics: widget.analytics, radioPlayer: widget.radioPlayer),
               Container(
                 child: const Center(
                   child: Text("TV"),
