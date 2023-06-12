@@ -19,7 +19,7 @@ class ChatPage extends StatefulWidget {
   static const String routeName = '/chat_view';
 
   @override
-  _ChatPageState createState() => _ChatPageState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
 class _ChatPageState extends State<ChatPage> {
@@ -92,7 +92,7 @@ class _ChatPageState extends State<ChatPage> {
     String chatMessgae = _profanityFilter.censor(message["message"]);
 
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: _auth.currentUser?.uid == message['authorId']
             ? Colors.white
@@ -104,22 +104,22 @@ class _ChatPageState extends State<ChatPage> {
           backgroundImage: NetworkImage(message['authorPhotoUrl']),
         ),
         title: Text(chatMessgae,
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
+            style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400)),
         subtitle: Row(
           children: [
-            Text(message['author'], style: TextStyle(fontSize: 10.0)),
-            SizedBox(width: 12.0),
+            Text(message['author'], style: const TextStyle(fontSize: 10.0)),
+            const SizedBox(width: 12.0),
             Row(
               children: [
-                Icon(
+                const Icon(
                   FontAwesomeIcons.clock,
                   size: 12.0,
                   color: Colors.grey,
                 ),
-                SizedBox(width: 2.0),
+                const SizedBox(width: 2.0),
                 Text(
                   formatFirebaseTimestamp(message['timestamp']),
-                  style: TextStyle(fontSize: 10.0),
+                  style: const TextStyle(fontSize: 10.0),
                 ),
               ],
             )
@@ -128,9 +128,9 @@ class _ChatPageState extends State<ChatPage> {
         trailing: _auth.currentUser!.uid != message['authorId']
             ? PopupMenuButton(
                 itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: Text('Report'),
+                  const PopupMenuItem(
                     value: 'report',
+                    child: Text('Report'),
                   ),
                 ],
                 onSelected: (value) {
@@ -142,7 +142,7 @@ class _ChatPageState extends State<ChatPage> {
             : null,
         visualDensity: VisualDensity.compact,
         horizontalTitleGap: 16.0,
-        contentPadding: EdgeInsets.all(4.0),
+        contentPadding: const EdgeInsets.all(4.0),
       ),
     );
   }
@@ -151,10 +151,10 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Global Chat'),
+        title: const Text('Global Chat'),
         backgroundColor: Colors.white.withOpacity(0.8),
         surfaceTintColor: Colors.white.withOpacity(0.0),
-        systemOverlayStyle: SystemUiOverlayStyle(
+        systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
         ),
@@ -166,7 +166,7 @@ class _ChatPageState extends State<ChatPage> {
           Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: GradientColors.yellow,
                 begin: Alignment.bottomLeft,
@@ -182,7 +182,7 @@ class _ChatPageState extends State<ChatPage> {
                   if (snapshot.data == null) {
                     return Center(
                       child: Container(
-                        padding: EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(20.0),
                         height: MediaQuery.of(context).size.width * 0.8,
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
@@ -193,7 +193,7 @@ class _ChatPageState extends State<ChatPage> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Text(
+                              const Text(
                                 'Welcome to',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -201,7 +201,7 @@ class _ChatPageState extends State<ChatPage> {
                                   fontSize: 20.0,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "FM Mahanama",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -209,7 +209,7 @@ class _ChatPageState extends State<ChatPage> {
                                   fontSize: 24.0,
                                 ),
                               ),
-                              Text(
+                              const Text(
                                 "Global Chat!",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -217,15 +217,15 @@ class _ChatPageState extends State<ChatPage> {
                                   fontSize: 20.0,
                                 ),
                               ),
-                              SizedBox(height: 20.0),
-                              Text(
+                              const SizedBox(height: 20.0),
+                              const Text(
                                 'You need to be signed in to use the chat',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 16.0,
                                 ),
                               ),
-                              SizedBox(height: 20.0),
+                              const SizedBox(height: 20.0),
                               TextButton.icon(
                                 onPressed: () async {
                                   try {
@@ -233,15 +233,15 @@ class _ChatPageState extends State<ChatPage> {
                                     _showWarningMessage();
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
                                         content: Text(
                                             "Error signing in with Google! Please try again later."),
                                       ),
                                     );
                                   }
                                 },
-                                icon: Icon(FontAwesomeIcons.google),
-                                label: Text('Sign in with Google'),
+                                icon: const Icon(FontAwesomeIcons.google),
+                                label: const Text('Sign in with Google'),
                               ),
                             ],
                           ),
@@ -252,7 +252,7 @@ class _ChatPageState extends State<ChatPage> {
                     return Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(20.0),
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.8),
@@ -273,7 +273,7 @@ class _ChatPageState extends State<ChatPage> {
                                 children: [
                                   Text(
                                     'Logged in as ${snapshot.data!.displayName}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -287,7 +287,7 @@ class _ChatPageState extends State<ChatPage> {
                                   GoogleSignIn().disconnect();
                                   _auth.signOut();
                                 },
-                                icon: Icon(Icons.logout),
+                                icon: const Icon(Icons.logout),
                               ),
                             ],
                           ),
@@ -302,7 +302,7 @@ class _ChatPageState extends State<ChatPage> {
                             builder: (BuildContext context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
                               if (!snapshot.hasData) {
-                                return Text('No data available');
+                                return const Text('No data available');
                               }
                               final messages = snapshot.data!.docs;
 
@@ -312,9 +312,9 @@ class _ChatPageState extends State<ChatPage> {
                                 itemCount: messages.length,
                                 separatorBuilder:
                                     (BuildContext context, int index) {
-                                  return SizedBox(height: 8.0);
+                                  return const SizedBox(height: 8.0);
                                 },
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 itemBuilder: (BuildContext context, int index) {
                                   final Map<String, dynamic> message =
                                       messages[index].data()
@@ -329,7 +329,7 @@ class _ChatPageState extends State<ChatPage> {
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.all(20.0),
+                          padding: const EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.8),
                           ),
@@ -360,7 +360,7 @@ class _ChatPageState extends State<ChatPage> {
                                 ),
                               ),
                               IconButton(
-                                icon: Icon(Icons.send_rounded),
+                                icon: const Icon(Icons.send_rounded),
                                 onPressed: _sendMessage,
                               ),
                             ],
@@ -407,16 +407,16 @@ class _ChatPageState extends State<ChatPage> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          icon: Icon(Icons.warning_rounded),
-          title: Text('Be Respectful!'),
-          content: Text(
+          icon: const Icon(Icons.warning_rounded),
+          title: const Text('Be Respectful!'),
+          content: const Text(
               'This is a global chat. Please be respectful to others and do not post anything inappropriate. If we find any inappropriate messages, we will ban you from using the chat. Chat will be resetted every week to keep it clean.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Got It!'),
+              child: const Text('Got It!'),
             ),
           ],
         );
@@ -429,16 +429,16 @@ class _ChatPageState extends State<ChatPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          icon: Icon(Icons.warning_rounded),
-          title: Text('Report Message'),
-          content: Text(
+          icon: const Icon(Icons.warning_rounded),
+          title: const Text('Report Message'),
+          content: const Text(
               'Are you sure you want to report this message? This will be reviewed by the admins and if found inappropriate, the user will be banned from using the chat.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
@@ -449,7 +449,7 @@ class _ChatPageState extends State<ChatPage> {
                 });
                 Navigator.of(context).pop();
               },
-              child: Text('Report'),
+              child: const Text('Report'),
             ),
           ],
         );
