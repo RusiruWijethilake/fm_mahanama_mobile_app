@@ -125,19 +125,21 @@ class _ChatPageState extends State<ChatPage> {
             )
           ],
         ),
-        trailing: _auth.currentUser!.uid != message['authorId'] ? PopupMenuButton(
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              child: Text('Report'),
-              value: 'report',
-            ),
-          ],
-          onSelected: (value) {
-            if (value == 'report') {
-              _showReportMessage(message, _auth.currentUser!.uid);
-            }
-          },
-        ) : null,
+        trailing: _auth.currentUser!.uid != message['authorId']
+            ? PopupMenuButton(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: Text('Report'),
+                    value: 'report',
+                  ),
+                ],
+                onSelected: (value) {
+                  if (value == 'report') {
+                    _showReportMessage(message, _auth.currentUser!.uid);
+                  }
+                },
+              )
+            : null,
         visualDensity: VisualDensity.compact,
         horizontalTitleGap: 16.0,
         contentPadding: EdgeInsets.all(4.0),
@@ -329,7 +331,7 @@ class _ChatPageState extends State<ChatPage> {
                         Container(
                           padding: EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Colors.white.withOpacity(0.8),
                           ),
                           child: Row(
                             children: [
@@ -345,10 +347,16 @@ class _ChatPageState extends State<ChatPage> {
                                   autocorrect: false,
                                   keyboardType: TextInputType.text,
                                   maxLength: 300,
-                                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                  maxLengthEnforcement:
+                                      MaxLengthEnforcement.enforced,
                                   enableIMEPersonalizedLearning: true,
-                                  buildCounter: (BuildContext context, { int? currentLength, int? maxLength, bool? isFocused }) => null,
-                                  textCapitalization: TextCapitalization.sentences,
+                                  buildCounter: (BuildContext context,
+                                          {int? currentLength,
+                                          int? maxLength,
+                                          bool? isFocused}) =>
+                                      null,
+                                  textCapitalization:
+                                      TextCapitalization.sentences,
                                 ),
                               ),
                               IconButton(
@@ -434,13 +442,11 @@ class _ChatPageState extends State<ChatPage> {
             ),
             TextButton(
               onPressed: () async {
-                await _firestore
-                    .collection('global_chat_reports')
-                    .add({
-                      'message': message,
-                      'timestamp': Timestamp.now(),
-                      'reported by': uid,
-                    });
+                await _firestore.collection('global_chat_reports').add({
+                  'message': message,
+                  'timestamp': Timestamp.now(),
+                  'reported by': uid,
+                });
                 Navigator.of(context).pop();
               },
               child: Text('Report'),
