@@ -1,9 +1,10 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:assets_audio_player/src/assets_audio_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fm_mahanama_mobile_app/pages/tabs/chat_view.dart';
+import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,6 +25,15 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
   late AnimationController controller;
   late Animation<double> animation;
 
+  bool _initialLoad = false;
+  bool _streamOnline = false;
+  bool _chatEnabled = false;
+
+  String _nowPlaying = "";
+  String _by = "";
+  String _coverPhoto = "";
+  String _radioStreamUrl = "";
+
   @override
   void initState() {
     super.initState();
@@ -35,10 +45,91 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
       parent: controller,
       curve: Curves.easeInOut,
     );
+    loadAndListenToRadioData();
+  }
+
+  void loadAndListenToRadioData() async {
+    _radioStream.listen((event) {
+      if (event.exists) {
+        bool onAir = event.get("onair");
+        bool chatEnabled = event.get("chat_enabled");
+        String nowPlaying = event.get("nowplaying");
+        String by = event.get("by");
+        String radioStreamUrl = event.get("link");
+        String coverPhoto = event.get("cover");
+
+        if (onAir != _streamOnline) {
+          setState(() {
+            _streamOnline = onAir;
+          });
+        }
+
+        if (chatEnabled != _chatEnabled) {
+          setState(() {
+            _chatEnabled = chatEnabled;
+          });
+        }
+
+        if (nowPlaying != _nowPlaying) {
+          setState(() {
+            _nowPlaying = nowPlaying;
+          });
+        }
+
+        if (by != _by) {
+          setState(() {
+            _by = by;
+          });
+        }
+
+        if (radioStreamUrl != _radioStreamUrl) {
+          setState(() {
+            _radioStreamUrl = radioStreamUrl;
+          });
+        }
+
+        FirebaseStorage.instance.refFromURL(coverPhoto).getDownloadURL().then((value) {
+          if (value != _coverPhoto) {
+            setState(() {
+              _coverPhoto = value;
+            });
+            if (_streamOnline) {
+              widget.radioPlayer.open(
+                Audio.liveStream(
+                  radioStreamUrl,
+                  metas: Metas(
+                    title: nowPlaying,
+                    artist: by,
+                    image: MetasImage.network(coverPhoto),
+                  ),
+                ),
+                autoStart: false,
+                notificationSettings: NotificationSettings(
+                  nextEnabled: false,
+                  prevEnabled: false,
+                  seekBarEnabled: false,
+                  playPauseEnabled: true,
+                  stopEnabled: false,
+                ),
+                forceOpen: true,
+                playInBackground: PlayInBackground.enabled,
+                audioFocusStrategy: AudioFocusStrategy.request(
+                  resumeAfterInterruption: true,
+                  resumeOthersPlayersAfterDone: true,
+                ),
+                showNotification: true,
+              );
+            }
+          }
+        });
+      }
+      _initialLoad = true;
+    });
   }
 
   @override
   void dispose() {
+    widget.radioPlayer.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -49,215 +140,244 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
       child: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.all(16.0),
-        child: StreamBuilder<DocumentSnapshot>(
-          stream: _radioStream,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text("Something went wrong");
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            }
-            if (snapshot.hasData && !snapshot.data!.exists) {
-              return const Text("Document does not exist");
-            }
-            if (snapshot.data!.get("onair") == true) {
-              String nowPlaying = snapshot.data!.get("nowplaying");
-              String by = snapshot.data!.get("by");
-              String coverPhoto = snapshot.data!.get("cover");
-              final gsCoverPhoto = FirebaseStorage.instance.refFromURL(coverPhoto);
-
-              return Column(
-                children: [
-                  const Text(
-                    "NOW PLAYING",
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(height: 22.0),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.62,
-                    height: MediaQuery.of(context).size.width * 0.62,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.8),
-                      borderRadius: BorderRadius.circular(240.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 16.0,
-                          offset: const Offset(0.0, 4.0),
-                        ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(240.0),
-                      child: StreamBuilder(
-                        stream: gsCoverPhoto.getDownloadURL().asStream(),
-                        builder: (context, snapshot) {
-                          return Image.network(
-                            snapshot.data.toString(),
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(color: AppColors().appColorYellow,),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Center(
-                                child: Icon(Icons.error_outline_rounded, color: Colors.grey, size: 48.0,),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 22.0),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: Text(
-                      "Music Infinity",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                    child: Text(
-                      "Mahanama College Radio Club",
-                      style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 22.0),
-                  IconButton.filled(
-                    onPressed: () {
-                      setState(() {
-                        controller.isCompleted ? controller.reverse() : controller.forward();
-                      });
-                    },
-                    icon: AnimatedIcon(
-                      icon: AnimatedIcons.play_pause,
-                      progress: animation,
-                      size: 52.0,
-                    ),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
-                      foregroundColor: Colors.black87,
-                      padding: const EdgeInsets.all(18.0),
-                    ),
-                  ),
-                  const SizedBox(height: 22.0),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: 70,
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, ChatPage.routeName);
-                          },
-                          icon: const Icon(Icons.chat_rounded),
-                          iconSize: 24.0,
-                          color: Colors.black54,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.share_rounded),
-                          iconSize: 24.0,
-                          color: Colors.black54,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(FontAwesomeIcons.heart),
-                          iconSize: 24.0,
-                          color: Colors.black54,
-                        ),
-                      ],
-                    ),
+        child: _initialLoad ? _streamOnline ? Column(
+          children: [
+            const Text(
+              "NOW PLAYING",
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 16.0,
+              ),
+            ),
+            const SizedBox(height: 22.0),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.62,
+              height: MediaQuery.of(context).size.width * 0.62,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(240.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 16.0,
+                    offset: const Offset(0.0, 4.0),
                   ),
                 ],
-              );
-            } else {
-              widget.radioPlayer.stop();
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(240.0),
+                child: Image.network(
+                  _coverPhoto,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(color: AppColors().appColorYellow,),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Icon(Icons.error_outline_rounded, color: Colors.grey, size: 48.0,),
+                    );
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 22.0),
+            Padding(
+              padding: EdgeInsets.only(left: 30.0, right: 30.0),
+              child: Text(
+                _nowPlaying,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 30.0, right: 30.0),
+              child: Text(
+                _by,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16.0,
+                ),
+              ),
+            ),
+            const SizedBox(height: 22.0),
+            widget.radioPlayer.builderIsPlaying(builder: (context, isPlaying) {
+              if (isPlaying) {
+                controller.forward();
+              } else {
+                controller.reverse();
+              }
 
-              return Container(
-                height: MediaQuery.of(context).size.width * 0.8,
-                width: MediaQuery.of(context).size.width * 0.8,
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 16.0,
-                      offset: const Offset(0.0, 4.0),
+              return IconButton.filled(
+                onPressed: () async {
+                  if (isPlaying) {
+                    await widget.analytics.logEvent(name: 'radio_stop', parameters: null);
+                    widget.radioPlayer.stop();
+                    controller.reverse();
+                    widget.radioPlayer.updateCurrentAudioNotification(
+                      metas: Metas(
+                        title: _nowPlaying,
+                        artist: _by,
+                        image: MetasImage.network(_coverPhoto),
+                      ),
+                      showNotifications: false,
+                    );
+                  } else {
+                    await widget.analytics.logEvent(name: 'radio_play', parameters: null);
+                    widget.radioPlayer.play();
+                    widget.radioPlayer.setLoopMode(LoopMode.none);
+                    controller.forward();
+                    widget.radioPlayer.updateCurrentAudioNotification(
+                      metas: Metas(
+                        title: _nowPlaying,
+                        artist: _by,
+                        image: MetasImage.network(_coverPhoto),
+                      ),
+                      showNotifications: true,
+                    );
+                  }
+                },
+                icon: AnimatedIcon(
+                  icon: AnimatedIcons.play_pause,
+                  progress: animation,
+                  size: 52.0,
+                ),
+                style: IconButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.background.withOpacity(0.8),
+                  foregroundColor: Colors.black87,
+                  padding: const EdgeInsets.all(18.0),
+                ),
+              );
+            },),
+            const SizedBox(height: 22.0),
+            widget.radioPlayer.builderIsBuffering(
+              builder: (context, isBuffering) {
+                if (isBuffering) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.black.withOpacity(0.1),
+                    ),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
+            const SizedBox(height: 22.0),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              height: 70,
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: _chatEnabled ? () {
+                      Navigator.pushNamed(context, ChatPage.routeName);
+                    } : () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Chat is disabled for now. Check back later."),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.chat_rounded),
+                    iconSize: 24.0,
+                    color: Colors.black87,
+                    tooltip: _chatEnabled ? "Chat" : "Chat is disabled",
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.share_rounded),
+                    iconSize: 24.0,
+                    color: Colors.black87,
+                    tooltip: "Share the live radio",
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(FontAwesomeIcons.heart),
+                    iconSize: 24.0,
+                    color: Colors.black87,
+                    tooltip: "Like the stream",
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ) : Container(
+          height: MediaQuery.of(context).size.width * 0.8,
+          width: MediaQuery.of(context).size.width * 0.8,
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(20.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 16.0,
+                offset: const Offset(0.0, 4.0),
+              ),
+            ],
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "FM Mahanama is currently offline!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black54, fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16.0),
+                Text(
+                  "Please check back later or check our social media for updates.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black54, fontSize: 16.0),
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(FontAwesomeIcons.facebookF),
+                      label: Text("Facebook"),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(FontAwesomeIcons.instagram),
+                      label: Text("Instagram"),
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.pink,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        "FM Mahanama is currently offline!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black54, fontSize: 16.0, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Text(
-                        "Please check back later or check our social media for updates.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.black54, fontSize: 16.0),
-                      ),
-                      const SizedBox(height: 16.0),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          TextButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(FontAwesomeIcons.facebookF),
-                            label: Text("Facebook"),
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8.0),
-                          TextButton.icon(
-                            onPressed: () {},
-                            icon: const Icon(FontAwesomeIcons.instagram),
-                            label: Text("Instagram"),
-                            style: ElevatedButton.styleFrom(
-                              foregroundColor: Colors.pink,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-          },
+              ],
+            ),
+          ),
+        ) : Center(
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       ),
     );

@@ -336,9 +336,6 @@ class _ChatPageState extends State<ChatPage> {
                               Expanded(
                                 child: TextField(
                                   controller: _messageController,
-                                  onSubmitted: (value) {
-                                    _sendMessage();
-                                  },
                                   decoration: InputDecoration(
                                     hintText: 'Type your message...',
                                     border: OutlineInputBorder(
@@ -346,7 +343,12 @@ class _ChatPageState extends State<ChatPage> {
                                     ),
                                   ),
                                   autocorrect: false,
-                                  keyboardType: TextInputType.multiline,
+                                  keyboardType: TextInputType.text,
+                                  maxLength: 300,
+                                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                                  enableIMEPersonalizedLearning: true,
+                                  buildCounter: (BuildContext context, { int? currentLength, int? maxLength, bool? isFocused }) => null,
+                                  textCapitalization: TextCapitalization.sentences,
                                 ),
                               ),
                               IconButton(

@@ -41,6 +41,10 @@ class _HomePageState extends State<HomePage>{
         title: const Text("FM Mahanama"),
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ),
         actions: [
           PopupMenuButton(
             icon: const Icon(Icons.more_vert_rounded),
@@ -167,6 +171,13 @@ class _HomePageState extends State<HomePage>{
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Coming soon!"),
+          ),
+        );
+      }, child: const Icon(Icons.add), backgroundColor: Colors.white, foregroundColor: Colors.black,),
     );
   }
 

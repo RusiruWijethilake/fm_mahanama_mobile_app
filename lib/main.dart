@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fm_mahanama_mobile_app/firebase_options.dart';
 import 'package:fm_mahanama_mobile_app/pages/home_page.dart';
-import 'package:fm_mahanama_mobile_app/pages/tabs/chat_view.dart';
+import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/theme/color_schemes.g.dart';
 
 void main() async {
