@@ -4,6 +4,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/pages/tabs/tab_radio.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage>{
     );
     checkAndListenToFirestoreState();
     widget.analytics.setCurrentScreen(screenName: HomePage.routeName);
+    FlutterNativeSplash.remove();
   }
 
   @override
@@ -76,14 +78,16 @@ class _HomePageState extends State<HomePage>{
                   context: context,
                   applicationName: widget.packageInfo.appName,
                   applicationVersion: widget.packageInfo.version,
-                  applicationIcon: const Icon(Icons.radio),
-                  applicationLegalese: "© ${DateTime.now().year} FM Mahanama\nDesigned & Developed by Rusiru Wijethilake",
+                  applicationIcon: Image.asset("assets/icons/ic_logo_border.png", width: 100, height: 120, fit: BoxFit.contain,),
+                  applicationLegalese: "© ${DateTime.now().year} FM Mahanama",
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const Text("Designed & Developed by Rusiru Wijethilake", style: TextStyle(fontWeight: FontWeight.bold)),
+                          const SizedBox(height: 12),
                           const Text("FM Mahanama is the official radio station of Mahanama College Radio Club."),
                           const SizedBox(height: 12),
                           const Text("This app is open-sourced and available on GitHub under the MIT License. Checkout the source code at following locations."),
@@ -101,7 +105,7 @@ class _HomePageState extends State<HomePage>{
                                 );
                               }
                             },
-                            child: const Text("📎 GitHub.com")
+                            child: const Text("📎 GitHub.com", style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                         ],
                       ),

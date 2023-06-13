@@ -7,6 +7,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_performance/firebase_performance.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:fm_mahanama_mobile_app/firebase_options.dart';
 import 'package:fm_mahanama_mobile_app/pages/home_page.dart';
 import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
@@ -16,7 +17,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 PackageInfo? _packageInfo;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
