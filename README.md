@@ -1,7 +1,8 @@
+![GitHub release (by tag)](https://img.shields.io/github/downloads/RusiruWijethilake/fm_mahanama_mobile_app/beta-release/total) ![GitHub](https://img.shields.io/github/license/RusiruWijethilake/fm_mahanama_mobile_app) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RusiruWijethilake/fm_mahanama_mobile_app?include_prereleases) 
+
 # FM Mahanama Mobile App Project
 
 Official FOSS FM Mahanama mobile app for IOS and Android created with Flutter
-
 
 ## What is FM Mahanama project about?
 
@@ -13,7 +14,6 @@ The Radio Club of Mahanama College is a student-run organization that was founde
 
 FM Mahanama is a valuable resource for students and the general public. The station provides a platform for students to express their creativity and to learn about the radio industry. FM Mahanama also provides a source of entertainment and information for people in Colombo. The station is a valuable asset to the community, and is a source of pride for Mahanama College.
 
-
 ### About FM Mahanama Apps
 
 Live stream of FM Mahanama can be listened through either FM Mahanama mobile apps or web client. Both platforms offer basic functionality to listen to the FM Mahanama live stream. However the mobile clients comes back with additional functionalities. Currently following funtionalities are available in both Android and IOS clients.
@@ -23,11 +23,9 @@ Live stream of FM Mahanama can be listened through either FM Mahanama mobile app
 * Watch live TV Mahanama and past lives
 * Live scoreboard
 
-
 ## Downloading the app
 
 Currently the mobile applications are under development. There are no releases.
-
 
 ## Contributing to the development
 
