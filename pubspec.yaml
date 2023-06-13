@@ -49,6 +49,7 @@ dependencies:
   google_sign_in: ^6.1.4
   intl: ^0.18.1
   profanity_filter: ^2.0.0
+  package_info_plus: ^4.0.2
 
 dev_dependencies:
   flutter_test:

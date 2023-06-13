@@ -12,9 +12,9 @@ import 'package:intl/intl.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 
 class ChatPage extends StatefulWidget {
-  FirebaseAnalytics analytics;
+  final FirebaseAnalytics analytics;
 
-  ChatPage({Key? key, required this.analytics}) : super(key: key);
+  const ChatPage({Key? key, required this.analytics}) : super(key: key);
 
   static const String routeName = '/chat_view';
 

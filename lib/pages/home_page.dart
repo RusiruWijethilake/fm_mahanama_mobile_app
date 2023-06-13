@@ -1,4 +1,4 @@
-import 'package:assets_audio_player/src/assets_audio_player.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +7,15 @@ import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/pages/tabs/tab_radio.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class HomePage extends StatefulWidget {
   FirebaseAnalytics analytics;
   AssetsAudioPlayer radioPlayer;
+  PackageInfo packageInfo;
 
-  HomePage({Key? key, required this.analytics, required this.radioPlayer}) : super(key: key);
+  HomePage({Key? key, required this.analytics, required this.radioPlayer, required this.packageInfo}) : super(key: key);
 
   static const String routeName = '/home_page';
 
@@ -72,14 +74,15 @@ class _HomePageState extends State<HomePage>{
               if (value == "about") {
                 showAboutDialog(
                   context: context,
-                  applicationName: "FM Mahanama",
-                  applicationVersion: "1.0.0",
+                  applicationName: widget.packageInfo.appName,
+                  applicationVersion: widget.packageInfo.version,
                   applicationIcon: const Icon(Icons.radio),
                   applicationLegalese: "© ${DateTime.now().year} FM Mahanama\nDesigned & Developed by Rusiru Wijethilake",
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text("FM Mahanama is the official radio station of Mahanama College Radio Club."),
                           const SizedBox(height: 12),
@@ -98,7 +101,7 @@ class _HomePageState extends State<HomePage>{
                                 );
                               }
                             },
-                            child: const Text("GitHub.com")
+                            child: const Text("📎 GitHub.com")
                           ),
                         ],
                       ),
@@ -136,12 +139,12 @@ class _HomePageState extends State<HomePage>{
               RadioTab(analytics: widget.analytics, radioPlayer: widget.radioPlayer),
               Container(
                 child: const Center(
-                  child: Text("TV"),
+                  child: Text("TV Page Under Development"),
                 ),
               ),
               Container(
                 child: const Center(
-                  child: Text("Scoreboard"),
+                  child: Text("Scoreboard Page Under Development"),
                 ),
               ),
             ],
@@ -195,7 +198,7 @@ class _HomePageState extends State<HomePage>{
     );
   }
 
-  void checkAndListenToFirestoreState() {
+  void checkAndListenToFirestoreState() async {
     _radioStream.listen((event) {
       if (event.exists) {
         bool chatEnabled = event.data()!['chat_enabled'];

@@ -1,10 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:assets_audio_player/src/assets_audio_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -96,7 +94,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                   ),
                 ),
                 autoStart: false,
-                notificationSettings: NotificationSettings(
+                notificationSettings: const NotificationSettings(
                   nextEnabled: false,
                   prevEnabled: false,
                   seekBarEnabled: false,
@@ -105,7 +103,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                 ),
                 forceOpen: true,
                 playInBackground: PlayInBackground.enabled,
-                audioFocusStrategy: AudioFocusStrategy.request(
+                audioFocusStrategy: const AudioFocusStrategy.request(
                   resumeAfterInterruption: true,
                   resumeOthersPlayersAfterDone: true,
                 ),
@@ -177,10 +175,10 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
             ),
             const SizedBox(height: 22.0),
             Padding(
-              padding: EdgeInsets.only(left: 30.0, right: 30.0),
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
               child: Text(
                 _nowPlaying,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,
@@ -188,10 +186,10 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30.0, right: 30.0),
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
               child: Text(
                 _by,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black54,
                   fontSize: 16.0,
                 ),
@@ -309,13 +307,13 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   "FM Mahanama is currently offline!",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16.0),
-                Text(
+                const Text(
                   "Please check back later or check our social media for updates.",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.black54, fontSize: 16.0),
@@ -327,7 +325,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                     TextButton.icon(
                       onPressed: () {},
                       icon: const Icon(FontAwesomeIcons.facebookF),
-                      label: Text("Facebook"),
+                      label: const Text("Facebook"),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.blue,
                         shape: RoundedRectangleBorder(
@@ -339,7 +337,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                     TextButton.icon(
                       onPressed: () {},
                       icon: const Icon(FontAwesomeIcons.instagram),
-                      label: Text("Instagram"),
+                      label: const Text("Instagram"),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.pink,
                         shape: RoundedRectangleBorder(
@@ -352,7 +350,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
               ],
             ),
           ),
-        ) : Center(
+        ) : const Center(
           child: CircularProgressIndicator(
             color: Colors.white,
           ),
