@@ -1,4 +1,4 @@
-![GitHub release (by tag)](https://img.shields.io/github/downloads/RusiruWijethilake/fm_mahanama_mobile_app/beta-release/total) ![GitHub](https://img.shields.io/github/license/RusiruWijethilake/fm_mahanama_mobile_app) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RusiruWijethilake/fm_mahanama_mobile_app?include_prereleases) 
+![GitHub release (by tag)](https://img.shields.io/github/downloads/RusiruWijethilake/fm_mahanama_mobile_app/beta-release/total) ![GitHub](https://img.shields.io/github/license/RusiruWijethilake/fm_mahanama_mobile_app) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/RusiruWijethilake/fm_mahanama_mobile_app?include_prereleases)
 
 # FM Mahanama Mobile App Project
 
@@ -25,7 +25,9 @@ Live stream of FM Mahanama can be listened through either FM Mahanama mobile app
 
 ## Downloading the app
 
-Currently the mobile applications are under development. There are no releases.
+Currently no public release is created.
+
+You can download the latest beta build in on [releases](https://github.com/RusiruWijethilake/fm_mahanama_mobile_app/releases/tag/beta-release)
 
 ## Contributing to the development
 
