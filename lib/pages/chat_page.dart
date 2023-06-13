@@ -36,6 +36,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     _loadChatHistory();
+    widget.analytics.setCurrentScreen(screenName: ChatPage.routeName);
+    widget.analytics.logEvent(name: 'chat_page_opened');
   }
 
   void _loadChatHistory() {
@@ -230,6 +232,13 @@ class _ChatPageState extends State<ChatPage> {
                                 onPressed: () async {
                                   try {
                                     await signInWithGoogle();
+                                    widget.analytics.logEvent(
+                                      name: 'joined_chat',
+                                      parameters: {
+                                        'user': _auth.currentUser!.uid,
+                                        'timestamp': DateTime.now(),
+                                      },
+                                    );
                                     _showWarningMessage();
                                   } catch (e) {
                                     ScaffoldMessenger.of(context).showSnackBar(

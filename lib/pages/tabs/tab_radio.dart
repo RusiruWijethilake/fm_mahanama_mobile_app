@@ -27,7 +27,6 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
 
   bool _initialLoad = false;
   bool _streamOnline = false;
-  bool _chatEnabled = false;
 
   String _nowPlaying = "";
   String _by = "";
@@ -52,7 +51,6 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
     _radioStream.listen((event) {
       if (event.exists) {
         bool onAir = event.get("onair");
-        bool chatEnabled = event.get("chat_enabled");
         String nowPlaying = event.get("nowplaying");
         String by = event.get("by");
         String radioStreamUrl = event.get("link");
@@ -61,12 +59,6 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
         if (onAir != _streamOnline) {
           setState(() {
             _streamOnline = onAir;
-          });
-        }
-
-        if (chatEnabled != _chatEnabled) {
-          setState(() {
-            _chatEnabled = chatEnabled;
           });
         }
 
@@ -227,8 +219,8 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                       ),
                       showNotifications: false,
                     );
+                    widget.analytics.logEvent(name: 'radio_stop', parameters: null);
                   } else {
-                    await widget.analytics.logEvent(name: 'radio_play', parameters: null);
                     widget.radioPlayer.play();
                     widget.radioPlayer.setLoopMode(LoopMode.none);
                     controller.forward();
@@ -240,6 +232,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                       ),
                       showNotifications: true,
                     );
+                    widget.analytics.logEvent(name: 'radio_play', parameters: null);
                   }
                 },
                 icon: AnimatedIcon(
@@ -271,7 +264,7 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
             ),
             const SizedBox(height: 22.0),
             Container(
-              width: MediaQuery.of(context).size.width * 0.7,
+              width: MediaQuery.of(context).size.width * 0.6,
               height: 70,
               padding: const EdgeInsets.all(16.0),
               child: Row(
@@ -279,21 +272,6 @@ class _RadioTabState extends State<RadioTab> with SingleTickerProviderStateMixin
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    onPressed: _chatEnabled ? () {
-                      Navigator.pushNamed(context, ChatPage.routeName);
-                    } : () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Chat is disabled for now. Check back later."),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.chat_rounded),
-                    iconSize: 24.0,
-                    color: Colors.black87,
-                    tooltip: _chatEnabled ? "Chat" : "Chat is disabled",
-                  ),
                   IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.share_rounded),

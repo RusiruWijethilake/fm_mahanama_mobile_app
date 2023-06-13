@@ -1,8 +1,10 @@
 import 'package:assets_audio_player/src/assets_audio_player.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
+import 'package:fm_mahanama_mobile_app/pages/chat_page.dart';
 import 'package:fm_mahanama_mobile_app/pages/tabs/tab_radio.dart';
 import 'package:fm_mahanama_mobile_app/theme/app_colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -21,7 +23,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
 
+  final Stream<DocumentSnapshot<Map<String, dynamic>>> _radioStream = FirebaseFirestore.instance.collection('public').doc('stream').snapshots();
+
   int _selectedIndex = 0;
+  bool _chatEnabled = false;
 
   @override
   void initState() {
@@ -32,6 +37,8 @@ class _HomePageState extends State<HomePage>{
         DeviceOrientation.portraitDown,
       ],
     );
+    checkAndListenToFirestoreState();
+    widget.analytics.setCurrentScreen(screenName: HomePage.routeName);
   }
 
   @override
@@ -171,14 +178,39 @@ class _HomePageState extends State<HomePage>{
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Coming soon!"),
-          ),
-        );
-      }, child: const Icon(Icons.add), backgroundColor: Colors.white, foregroundColor: Colors.black,),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_chatEnabled) {
+            Navigator.pushNamed(context, ChatPage.routeName);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Chat is disabled by the admin! Please try again later."),
+              ),
+            );
+          }
+        },
+        child: const Icon(Icons.chat_rounded),
+      ),
     );
+  }
+
+  void checkAndListenToFirestoreState() {
+    _radioStream.listen((event) {
+      if (event.exists) {
+        bool chatEnabled = event.data()!['chat_enabled'];
+
+        if (chatEnabled) {
+          setState(() {
+            _chatEnabled = true;
+          });
+        } else {
+          setState(() {
+            _chatEnabled = false;
+          });
+        }
+      }
+    });
   }
 
 }
